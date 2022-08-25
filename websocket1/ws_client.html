@@ -1,0 +1,23 @@
+
+
+<script>
+
+    var ws = new WebSocket('ws://127.0.0.1:8001');
+    console.log('heollo', ws);
+    
+    //  RECEIVED DATA FROM THE SERVER
+    ws.onmessage = (event) => {
+        console.log(event.data);
+    };
+
+    //  SEND DATA TO THE SERVER
+    ws.onopen = (event) => {
+        ws.send('happy to connected with server.');
+    };
+
+    ws.on('sum', (data) => {
+        const sum = data.a + data.b;
+        ws.emit('sum', sum);
+    });
+
+</script>

@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Hello from client-side</h2>
+</body>
+</html>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+
+    const socket = io('http://127.0.0.1:3000');
+    
+    //  THIS SOCKET IS CONNECTED ON http://127.0.0.1:3000 URI
+    socket.on('connect', (data) => {
+
+        socket.on('welcome', (data) => {
+            console.log(data);
+        });
+
+        socket.emit('message', `${socket.id} is now connected`);
+
+        socket.emit('sum', {a: 1, b: 2});
+        socket.on('sum', (data) => {
+            console.log('sum is ', data);
+        })
+    });
+
+</script>
